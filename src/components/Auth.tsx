@@ -21,7 +21,7 @@ export function Auth({ onLogin }: AuthProps) {
   const [isVerifying, setIsVerifying] = useState(false);
   const [forgotPassword, setForgotPassword] = useState(false);
 
-  const rolesRequiringVerification = ['shop', 'restaurant', 'ngo', 'admin', 'volunteer'];
+  const rolesRequiringVerification = ['shop', 'restaurant', 'ngo', 'admin', 'volunteer', 'farmer'];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -296,6 +296,8 @@ export function Auth({ onLogin }: AuthProps) {
                     <SelectItem value="restaurant">Restaurant</SelectItem>
                     <SelectItem value="ngo">NGO / Charity</SelectItem>
                     <SelectItem value="volunteer">Volunteer</SelectItem>
+                    <SelectItem value="farmer">Farmer</SelectItem>
+                    <SelectItem value="buyer">Buyer</SelectItem>
                     <SelectItem value="admin">Admin</SelectItem>
                   </SelectContent>
                 </Select>

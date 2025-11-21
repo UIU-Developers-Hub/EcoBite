@@ -102,7 +102,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
 
           <div className="flex-1">
             <h1 className="text-2xl font-semibold leading-tight">
-              Welcome to <span className="text-green-700">FarmSmart</span>
+              Welcome to <span className="text-green-700">FoodFlow</span>
             </h1>
             <p className="mt-2 text-sm text-slate-600">
               Modern, lightweight farm management — practical AI insights,

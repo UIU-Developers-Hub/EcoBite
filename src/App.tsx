@@ -13,9 +13,11 @@ import { NGODonation } from './components/NGODonation';
 import { CommunityHub } from './components/CommunityHub';
 import { AdminPanel } from './components/AdminPanel';
 import { NotificationCenter } from './components/NotificationCenter';
+import { Buyers } from './components/Buyers';
+import { Farmers } from './components/Farmers';
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState<'onboarding' | 'auth' | 'home' | 'surplus' | 'kitchen' | 'gamification' | 'network' | 'bio' | 'profile' | 'business' | 'ngo' | 'hub' | 'admin' | 'notifications'>('onboarding');
+  const [currentScreen, setCurrentScreen] = useState<'onboarding' | 'auth' | 'home' | 'surplus' | 'kitchen' | 'gamification' | 'network' | 'bio' | 'profile' | 'business' | 'ngo' | 'hub' | 'admin' | 'notifications' | 'buyers' | 'farmers'>('onboarding');
   const [user, setUser] = useState<any>(null);
 
   const handleOnboardingComplete = () => {
@@ -93,6 +95,14 @@ export default function App() {
       
       {currentScreen === 'notifications' && user && (
         <NotificationCenter user={user} onBack={() => setCurrentScreen('home')} />
+      )}
+      
+      {currentScreen === 'buyers' && user && (
+        <Buyers user={user} onBack={() => setCurrentScreen('home')} />
+      )}
+      
+      {currentScreen === 'farmers' && user && (
+        <Farmers user={user} onBack={() => setCurrentScreen('home')} />
       )}
     </div>
   );

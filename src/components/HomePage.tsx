@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { 
   Search, Bell, ShoppingBag, MapPin, Truck, Recycle, 
   TrendingUp, Award, Leaf, User, ChevronRight, Sparkles,
-  Home, Utensils
+  Home, Utensils, Building2, Users, Store, ShoppingCart, Wheat
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -205,27 +205,150 @@ export function HomePage({ user, onNavigate, onLogout }: HomePageProps) {
           </div>
         </div>
 
-        {/* Quick Actions */}
+        {/* User Type Specific Sections */}
         <div className="px-6 pb-6">
-          <h2 className="text-lg mb-4 text-gray-900">Quick Actions</h2>
+          <h2 className="text-lg mb-4 text-gray-900">Your Dashboard</h2>
 
           <div className="space-y-3">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              onClick={() => onNavigate('kitchen')}
-              className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center">
-                  <span className="text-xl">👨‍🍳</span>
+            {/* Smart Kitchen - Only for household, business, government (NOT for buyers) */}
+            {(user.role === 'user' || user.role === 'shop' || user.role === 'restaurant' || user.role === 'admin') && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                onClick={() => onNavigate('kitchen')}
+                className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center">
+                    <span className="text-xl">👨‍🍳</span>
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-gray-900 text-sm">Smart Kitchen</h3>
+                    <p className="text-xs text-gray-500">Manage your pantry</p>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <h3 className="text-gray-900 text-sm">Smart Kitchen</h3>
-                  <p className="text-xs text-gray-500">Manage your pantry</p>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </motion.button>
+            )}
+
+            {/* Household Section */}
+            {user.role === 'user' && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                onClick={() => onNavigate('kitchen')}
+                className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+                    <Users className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-gray-900 text-sm">Household</h3>
+                    <p className="text-xs text-gray-500">Manage household inventory</p>
+                  </div>
                 </div>
-              </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
-            </motion.button>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </motion.button>
+            )}
+
+            {/* Business Section */}
+            {(user.role === 'shop' || user.role === 'restaurant') && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                onClick={() => onNavigate('kitchen')}
+                className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center">
+                    <Store className="w-5 h-5 text-purple-600" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-gray-900 text-sm">Business</h3>
+                    <p className="text-xs text-gray-500">Manage business inventory</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </motion.button>
+            )}
+
+            {/* Government Section */}
+            {user.role === 'admin' && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                onClick={() => onNavigate('kitchen')}
+                className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center">
+                    <Building2 className="w-5 h-5 text-indigo-600" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-gray-900 text-sm">Government</h3>
+                    <p className="text-xs text-gray-500">Manage government inventory</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </motion.button>
+            )}
+
+            {/* Buyers Section - Separate, NOT part of Smart Kitchen */}
+            {user.role === 'buyer' && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                onClick={() => onNavigate('buyers')}
+                className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center">
+                    <ShoppingCart className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-gray-900 text-sm">Buy from Farmers</h3>
+                    <p className="text-xs text-gray-500">Browse farmer listings</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </motion.button>
+            )}
+
+            {/* Farmers Section */}
+            {user.role === 'farmer' && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                onClick={() => onNavigate('farmers')}
+                className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
+                    <Wheat className="w-5 h-5 text-amber-600" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-gray-900 text-sm">My Farm Listings</h3>
+                    <p className="text-xs text-gray-500">List your produce</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </motion.button>
+            )}
+
+            {/* Also show Buyers option for other roles (not just buyer role) */}
+            {user.role !== 'buyer' && user.role !== 'farmer' && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                onClick={() => onNavigate('buyers')}
+                className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center">
+                    <ShoppingCart className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-gray-900 text-sm">Buy from Farmers</h3>
+                    <p className="text-xs text-gray-500">Browse farmer listings</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </motion.button>
+            )}
 
             <motion.button
               whileHover={{ scale: 1.02 }}
